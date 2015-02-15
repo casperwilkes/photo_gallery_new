@@ -1,0 +1,124 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Site Colors
+        #1A446C - blue grey
+        #689DC1 - light blue
+        #D4E6F4 - very light blue
+        #EEE4B9 - light tan
+        #8D0D19 - burgundy
+*/
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+fieldset {
+    border: none;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: #FFFFFF;
+    font: 13px/15px Veranda, Arial, Helvetica, sans-serif;
+}
+
+img {
+    border: none;
+}
+
+table, tr, td, tr {
+    border-collapse:collapse;
+    vertical-align:top;
+    text-align:left;
+    font-family: Verdana,Arial,Helvetica,sans-serif;
+}
+
+a {
+    color: #8D0D19;
+}
+
+#header {
+    height: 70px;
+    text-align:left;
+    background:#1A446C;
+    color:#D4E6F4;
+    /*overflow: hidden;*/
+}
+
+#header h1 {
+    padding: 1em;
+    margin: 0;
+    display: inline-block;
+}
+
+#log_in_out {
+    top: 20px;
+    right: 20px;
+    list-style-type: none;
+    padding: 0 20px;
+    position: absolute;
+    color: #D4E6F4;
+    z-index: 10;
+    background-color:#1A446C; 
+}
+
+#log_in_out ul{
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 0;
+}
+
+#nav li:nth-child(n+2) {
+    display: none;
+}
+
+.login {
+    color: #FFF;
+}
+.logout {
+    color: #D4E6F4;
+}
+
+.req {
+    color: #FF0000;
+}
+
+
+/* Note: IE 5 &6 won't understand min-height */
+#main {
+    min-height: 600px;
+    width: 100%;
+    background: #EEE4B9;
+    padding: 0;
+}
+#comments {
+    margin-top: 1em;
+}
+#container {
+    padding: 2em;
+}
+#footer {
+    height: 2em;
+    padding: 1em;
+    text-align: center;
+    background: #1A446C;
+    color: #D4E6F4;
+}
+
+table.bordered tr th, table.bordered tr td {
+    border: 1px solid #000000;
+}
+table.bordered th {
+    text-align: center;
+}
+
+#pagination .selected {
+    font-weight: bold;
+    color: #8D0D19;
+}
