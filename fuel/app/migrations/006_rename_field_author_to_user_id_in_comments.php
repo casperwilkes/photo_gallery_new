@@ -7,7 +7,7 @@ class Rename_field_author_to_user_id_in_comments
 	public function up()
 	{
 		\DBUtil::modify_fields('comments', array(
-			'author' => array('name' => 'user_id', 'type' => 'varchar', 'constraint' => 255)
+			'author' => array('name' => 'user_id', 'constraint' => 11, 'type' => 'int', 'unsigned' => true)
 		));
 	}
 

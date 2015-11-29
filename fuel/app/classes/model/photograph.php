@@ -163,7 +163,6 @@ class Model_Photograph extends Orm\Model {
      * Removes Photograph from database and assets directory //
      * @param int $id ID of photograph to remove
      * @return boolean
-     * @todo write method to remove photograph from assets dir
      */
     public static function remove_photo($id = null) {
         try {

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title><?= $title; ?></title>
+        <title>Photo Gallery | <?= $title; ?></title>
         <?= Asset::css('main.css'); ?>
         <?= Asset::js('jquery.min.js'); ?>
         <link rel="icon" href="<?php echo Uri::base(false); ?>favicon.ico" type="image/x-icon" /> 

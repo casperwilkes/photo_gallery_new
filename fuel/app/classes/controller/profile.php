@@ -1,9 +1,5 @@
 <?php
 
-/**
- * @todo create a profile for casper, create a profile when creating a new user,
- * make links for comments linking to user images and comments
- */
 class Controller_Profile extends Controller_Template {
 
     public function action_index() {

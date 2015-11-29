@@ -20,7 +20,7 @@
         foreach ($comments as $comment) :
             ?>
             <div class="comment" style="margin-bottom: 2em; ">
-                <div class="author"><?= $comment->user_id; ?> wrote:</div>
+                <div class="author"><?= Html::anchor('profile/view/' . $comment->user->username, $comment->user->username); ?> wrote:</div>
                 <div class="body"><?= $comment->body; ?></div>
                 <div class="meta-info" style="font-size: 0.8em;"><?= Helper::date_info($comment->created_at); ?></div>
             </div>

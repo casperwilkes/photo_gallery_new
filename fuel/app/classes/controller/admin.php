@@ -122,9 +122,7 @@ class Controller_Admin extends Controller_Template {
 
     public function action_comments($id = null) {
         is_null($id) and Fuel\Core\Response::redirect('admin/photos');
-        /**
-         * @todo make relational
-         */
+        
         $data['photo'] = Model_Photograph::find($id);
         $data['comments'] = Model_Comment::query()->where('photograph_id', $id)->get();
 

@@ -43,13 +43,17 @@ I have included the migrations needed to set up the database. I have also provid
 sql to start up the application. The sql for the database can be found in the sql directory 
 at the base of the project.
 
+To get the project up and running, clone the repository, then run composer update. Import the 
+SQL into your MySQL database, and go into *fuel/app/config/development/db.php* file and update the 
+username and password
+
 ##The Road Ahead
 I am already working on and plan on implementing the following features:
-- User profiles
-- Multiple user uploads instead of just admin upload
+~~ - User profiles~~
+~~ - Multiple user uploads instead of just admin upload~~
 - Group controls
-- User emails
-- More admin control
+~~ - User emails~~
+~~ - More admin control~~
 - A log reader (*I plan on turning this into a fuelphp package*)
 - A much richer experience all around
 

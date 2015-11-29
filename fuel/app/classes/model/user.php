@@ -1,8 +1,5 @@
 <?php
 
-/**
- * @todo Review class;
- */
 class Model_User extends \Orm\Model {
 
     protected static $_properties = array(

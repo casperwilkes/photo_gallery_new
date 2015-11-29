@@ -15,6 +15,7 @@
 
 <?php if (Auth::get_screen_name() == $username): ?>
     <div style="clear: left; overflow: hidden;">
-        <?= Html::anchor('profile/edit', 'Edit Profile'); ?>
+        <p><?= Html::anchor('profile/edit', 'Edit Profile'); ?></p>
+        <p><?= Html::anchor('logout', 'Logout'); ?></p>
     </div>
 <?php endif; ?>
