@@ -2,169 +2,85 @@
 
 class Controller_Admin extends Controller_Template {
 
-    /**
-     * Set this to run before any methods
-     */
     public function before() {
         parent::before();
-        if (!Auth::check() and basename(Uri::current()) != 'login') {
-            Response::redirect('login/');
+        if (!Auth::check() or Auth::get('group', 2) != 1) {
+            Response::redirect('photographs/');
         }
     }
 
-    /**
-     * Logs admin in. 
-     */
-    public function action_login() {
-        $auth = Auth\Auth::instance();
-        if ($auth->check()) {
-            Response::redirect('admin/');
-        }
-        $view = View::forge('admin/login');
-        $form = Model_User::populate_login(Fieldset::forge('login'));
-        $form->repopulate();
-        if (Input::post()) {
-            $result = Model_User::validate_login($form, $auth, Input::post());
-            if ($result['errors']) {
-                $view->set_safe('message', $result['message']);
-            } else {
-                Session::set_flash('success', $result['username'] . ' Successfully Logged in');
-                Response::redirect('admin/');
-            }
-        }
-        $view->set_safe('form', $form->build());
-
-        $this->template->title = 'Admin Login';
-        $this->template->content = $view;
-    }
-
-    /**
-     * Main page.
-     * Provides navigation around admin section.
-     */
     public function action_index() {
-        $data["subnav"] = $this->nav_items();
-        $this->template->title = 'Admin Main';
+
+        $nav = array(
+            array('path' => 'admin/photos', 'value' => 'List Photos'),
+            array('path' => 'admin/users', 'value' => 'Manage Users'),
+            array('path' => 'users/logout', 'value' => 'Logout')
+        );
+        $data['navigation'] = $nav;
+        $this->template->title = 'Admin &raquo; Index';
         $this->template->content = View::forge('admin/index', $data);
     }
 
-    /**
-     * Lists all photograph information in table.
-     */
-    public function action_list_photos() {
+    public function action_users() {
+        $data = array(
+            'users' => Model_User::find('all'),
+            'group' => Auth::group('Simplegroup')
+        );
+
+        $this->template->title = 'Manage Users';
+        $this->template->content = View::forge('admin/users', $data);
+    }
+
+    public function action_users_edit($id = null) {
+        is_null($id) and Response::redirect('admin/users');
+
+        $view = View::forge('admin/users_edit');
+        $user = Model_User::find($id);
+        $view->set('user', $user);
+        $fieldset = Fieldset::forge('edit_user');
+
+        Model_User::populate_edit($fieldset, $user);
+
+        if (Input::post()) {
+            if (Model_User::save_edit($fieldset, $user)) {
+                Response::redirect('admin/users');
+            } else {
+                $fieldset->repopulate();
+            }
+        }
+        $view->set('image', unserialize($user->profile_fields)['image']);
+        $view->set('edit_form', $fieldset->build(), FALSE);
+        $this->template->title = 'Edit User';
+        $this->template->content = $view;
+    }
+
+    public function action_users_delete($id = null) {
+        is_null($id) and Response::redirect('admin/users_edit');
+
+        Model_User::remove_user($id);
+
+        Response::redirect('admin/users_edit');
+    }
+
+    public function action_photos() {
         $photos = Model_Photograph::find('all');
         foreach ($photos as $photo) {
             $photo->set('comment_count', count(Model_Comment::query()->where('photograph_id', $photo->id)->get()));
         }
         $data['photos'] = $photos;
         $this->template->title = 'Admin Photographs';
-        $this->template->content = View::forge('admin/list_photos', $data);
+        $this->template->content = View::forge('admin/photos', $data);
     }
 
-    /**
-     * Edit comments on a given photograph.
-     * @param int $id Id of the photgraph
-     */
-    public function action_comments($id = null) {
-        is_null($id) and Fuel\Core\Response::redirect('admin/list_photos');
-
-        $data['photo'] = Model_Photograph::find($id);
-        $data['comments'] = Model_Comment::query()->where('photograph_id', $id)->get();
-
-        $this->template->title = 'Photo Gallery: Admin';
-        $this->template->content = View::forge('admin/comments', $data);
-    }
-
-    /**
-     * Deletes photos by id.
-     * @param int $id Photo id
-     */
-    public function action_delete_photo($id = null) {
+    public function action_photos_delete($id = null) {
         is_null($id) and Response::redirect('admin/list_photos');
-        $photograph = Model_Photograph::find($id);
-        if ($photograph) {
-            if ($photograph->delete()) {
-                if (!Model_Photograph::remove_photo($photograph->filename)) {
-                    Log::error('Photo not deleted', __METHOD__);
-                }
 
-                Session::set_flash('success', 'Deleted photograph');
-            } else {
-                Session::set_flash('error', 'Could not delete photograph at this time');
-            }
-        } else {
-            Session::set_flash('error', 'Could not delete photograph');
-        }
-        Response::redirect('admin/list_photos');
+        Model_Photograph::remove_photo($id);
+
+        Response::redirect('admin/photos');
     }
 
-    /**
-     * Deletes comment by id.
-     * @param int $id Comment id
-     */
-    public function action_delete_comment($id = null) {
-        /**
-         * If successfully deleted, need to delete file as well. 
-         */
-        is_null($id) and Response::redirect('admin/list_photos');
-        $comment = Model_Comment::find($id);
-        if ($comment) {
-            $comment->delete();
-            Session::set_flash('success', 'Comment deleted');
-            response::redirect('admin/comments');
-        } else {
-            Session::set_flash('error', 'Could not delete comment');
-            Response::redirect('admin/list_photos');
-        }
-    }
-
-    /**
-     * Uploads photo.
-     * Saves information to database and saves photo to assets/img dir.
-     */
-    public function action_upload_photo() {
-        if (Input::method() == 'POST') {
-            $val = Model_Photograph::validate('create');
-            if ($val->run()) {
-                $config = array(
-                    'auto_process' => FALSE,
-                    'path' => DOCROOT . 'assets/img',
-                    'ext_whitelist' => array('img', 'jpg', 'jpeg', 'gif', 'png'),
-                );
-
-                Upload::process($config);
-                if (Upload::is_valid()) {
-                    Upload::save();
-                    $upload = Upload::get_files(0);
-                    $photograph = Model_Photograph::forge(array(
-                                'filename' => $upload['name'],
-                                'type' => $upload['type'],
-                                'size' => $upload['size'],
-                                'caption' => Input::post('caption'),
-                    ));
-                    if ($photograph and $photograph->save()) {
-                        Session::set_flash('success', 'Added photograph: ' . $photograph->caption);
-                        Response::redirect('admin/list_photos');
-                    } else {
-                        Session::set_flash('error', 'Could not save photograph.');
-                    }
-                } else {
-                    $errors = Upload::get_errors();
-                    Session::set_flash('error', 'Could not upload image');
-                }
-            } else {
-                Session::set_flash('error', $val->error());
-            }
-        }
-        $this->template->title = "Upload Photograph";
-        $this->template->content = View::forge('admin/upload_photo');
-    }
-
-    /**
-     * Edits photo based on id. 
-     * @param int $id Photo id.
-     */
-    public function action_edit_photo($id = null) {
+    public function action_photos_edit($id = null) {
         is_null($id) and Response::redirect('photographs');
 
         if (!$photograph = Model_Photograph::find($id)) {
@@ -172,105 +88,56 @@ class Controller_Admin extends Controller_Template {
             Response::redirect('photographs');
         }
 
-        $form = \Fuel\Core\Form::forge('edit_image');
-        $form->add('caption', 'Caption:', array('value' => $photograph->caption));
-        $form->add('submit', ' ', array('type' => 'submit', 'value' => 'Edit'));
+        $form = Fieldset::forge('edit_image');
+        Model_Photograph::populate_edit($form, $photograph);
+
         if (Input::post()) {
-            $val = Model_Photograph::validate('edit');
-
-            if ($val->run()) {
-                $photograph->caption = Input::post('caption');
-
-                if ($photograph->save()) {
-                    Session::set_flash('success', 'Updated photograph: ' . $photograph->caption);
-                    Response::redirect('admin/list_photos');
-                } else {
-                    Session::set_flash('error', 'Could not update photograph: ' . $photograph->caption);
-                }
+            if (Model_Photograph::save_edit($form, $photograph)) {
+                Response::redirect('admin/photos');
             } else {
-                if (Input::method() == 'POST') {
-                    $photograph->caption = $val->validated('caption');
-                    Session::set_flash('error', $val->error());
-                }
+                $form->repopulate();
             }
         }
         $this->template->set_global('photograph', $photograph, false);
         $this->template->set_global('form', $form, false);
         $this->template->title = "Photographs";
-        $this->template->content = View::forge('admin/edit_photo');
+        $this->template->content = View::forge('admin/photos_edit');
     }
 
-    /**
-     * Edits admin information.
-     * Acts as landing and receiving pages.
-     * @param int $id Id of user.
-     * @param \Fieldset $fieldset Form object
-     * @param array $errors Any errors the occured. 
-     */
-    public function get_edit_user($id = NULL, $fieldset = NULL, $errors = NULL) {
-        is_null($id) and Response::redirect('admin');
+    public function action_photos_new() {
+        $form = Fieldset::forge('new_image');
+        Model_Photograph::populate_upload($form);
 
-        $view = View::forge('admin/edit_user');
-        $user = Model_User::find($id);
-        $view->set('user', $user);
-        if (empty($fieldset)) {
-            $fieldset = Fieldset::forge('edit_user');
-            Model_User::populate_edit($fieldset, $user);
-        }
-        if ($errors) {
-            $view->set_safe('errors', $errors);
-        }
-        $view->set('edit_form', $fieldset->build(), FALSE);
-        $this->template->title = 'Edit User';
-        $this->template->content = $view;
-    }
-
-    /**
-     * Handles form submission form editing.
-     * @param int $id Id of user
-     */
-    public function post_edit_user($id = null) {
-        is_null($id) and Response::redirect('admin/');
-
-        $user = Model_User::find($id);
-        $fieldset = Model_user::populate_edit(Fieldset::forge('edit_user'), $user);
-        $fieldset->repopulate();
-        $result = Model_User::validate_edit($fieldset, Input::post(), $user);
-        if (!is_null($result['return'])) {
-            if ($result['return']) {
-                Session::set_flash('success', 'User has been updated');
+        if (Input::method() == 'POST') {
+            if (Model_Photograph::save_upload($form)) {
+                Response::redirect('admin/photos');
             } else {
-                Session::set_flash('error', 'User could not be updated');
+                $form->repopulate();
             }
         }
-        // Send results back to the get_edit function //
-        $this->get_edit_user($user->id, $fieldset, $result['errors']);
+        $data['form'] = $form;
+        $this->template->title = "Upload Photograph";
+        $this->template->content = View::forge('admin/photos_new', $data, false);
     }
 
-    /**
-     * Log admin out. 
-     */
-    public function action_logout() {
-        $auth = Auth::instance();
-        if ($auth->check()) {
-            $auth->logout();
-            Session::set_flash('success', 'User successfully logged out.');
-        } else {
-            Session::set_flash('error', 'User could not be logged out at this time.');
-        }
-        Response::redirect('photographs/');
+    public function action_comments($id = null) {
+        is_null($id) and Fuel\Core\Response::redirect('admin/photos');
+        /**
+         * @todo make relational
+         */
+        $data['photo'] = Model_Photograph::find($id);
+        $data['comments'] = Model_Comment::query()->where('photograph_id', $id)->get();
+
+        $this->template->title = 'Photo Gallery: Admin';
+        $this->template->content = View::forge('admin/comments', $data);
     }
 
-    /**
-     * Navigational links 
-     * @return array
-     */
-    private function nav_items() {
-        return array(
-            array('path' => 'admin/list_photos', 'value' => 'List Photos'),
-            array('path' => 'admin/edit_user/1', 'value' => 'Manage User'),
-            array('path' => 'admin/logout', 'value' => 'Logout')
-        );
+    public function action_comments_delete($image_id = null, $comment_id = null) {
+        is_null($image_id) or is_null($comment_id) and Response::redirect('admin/photos');
+
+        Model_Comment::remove_comment($comment_id);
+
+        response::redirect('admin/comments/' . $image_id);
     }
 
 }

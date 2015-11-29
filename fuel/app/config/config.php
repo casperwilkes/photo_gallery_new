@@ -76,7 +76,7 @@ return array(
      */
     // 'language'           => 'en', // Default language
     // 'language_fallback'  => 'en', // Fallback language when file isn't available for default language
-     'locale' => null, // PHP set_locale() setting, null to not set
+    'locale' => null, // PHP set_locale() setting, null to not set
 
     /**
      * Internal string encoding charset
@@ -100,7 +100,8 @@ return array(
      * Fuel::L_INFO
      * Fuel::L_ALL
      */
-     'log_threshold'    => Fuel::L_WARNING,
+    'log_threshold' => Fuel::L_INFO,
+//    'log_threshold' => Fuel::L_WARNING,
     // 'log_path'         => APPPATH.'logs/',
     // 'log_date_format'  => 'Y-m-d H:i:s',
 
@@ -108,14 +109,14 @@ return array(
      * Security settings
      */
     'security' => array(
-        // 'csrf_autoload'    => false,
-        // 'csrf_token_key'   => 'fuel_csrf_token',
-        // 'csrf_expiration'  => 0,
+         'csrf_autoload'    => false,
+         'csrf_token_key'   => 'PhOt0_GaL73rY_70k3N',
+         'csrf_expiration'  => 0,
 
         /**
          * A salt to make sure the generated security tokens are not predictable
          */
-        // 'token_salt'            => 'put your salt value here to make the token more secure',
+         'token_salt'            => 'S47TY_G0oDn35S',
 
         /**
          * Allow the Input class to use X headers when present
@@ -171,6 +172,7 @@ return array(
             'Fuel\\Core\\Response',
             'Fuel\\Core\\View',
             'Fuel\\Core\\ViewModel',
+            'Auth\\Auth_Group_Simplegroup',
             'Closure',
         ),
     ),
@@ -229,10 +231,9 @@ return array(
      *
      * Paths MUST end with a directory separator (the DS constant)!
      */
-    // 'module_paths' => array(
-    // 	//APPPATH.'modules'.DS
-    // ),
-
+    //'module_paths' => array(
+    //APPPATH . 'modules' . DS
+    //),
     /**
      * To enable you to split up your additions to the framework, packages are
      * used. You can define the basepaths for your packages here. By default

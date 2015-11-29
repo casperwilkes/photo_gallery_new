@@ -80,6 +80,7 @@ return array(
          * 50   => array('name' => 'Moderators', 'roles' => array('user', 'moderator')),
          * 100  => array('name' => 'Administrators', 'roles' => array('user', 'moderator', 'admin')),
          */
+        0 => array('name' => 'banned', 'roles' => array('banned')),
         1 => array('name' => 'Administrator', 'roles' => array('user', 'moderator', 'admin')),
         2 => array('name' => 'User', 'roles' => array('user'))
     ),
@@ -109,7 +110,7 @@ return array(
     /**
      * Salt for the login hash
      */
-    'login_hash_salt' => 'put_some_salt_in_here',
+    'login_hash_salt' => '7h!5_I5_547T',
     /**
      * $_POST key for login username
      */
