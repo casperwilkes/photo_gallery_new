@@ -104,6 +104,9 @@ class Model_Profile extends \Orm\Model {
      */
     public static function save_profile(Validation $val, $auth, $field) {
         try {
+            /**
+             * @todo old password incorrect error instead of throwing exception
+             */
             if ($val->run()) {
                 // Update based on field //
                 // Password exception //
@@ -148,7 +151,7 @@ class Model_Profile extends \Orm\Model {
             }
         } catch (Exception $e) {
             Log::error($e, __METHOD__);
-            Session::set_flash('error', 'Profile could not be saved at this time.');
+            Session::set_flash('error', 'Profile update could not be saved at this time.');
             return false;
         }
     }

@@ -92,6 +92,7 @@ return array(
     'default_timezone' => 'America/New_York',
     /**
      * Logging Threshold.  Can be set to any of the following:
+     * 
      *
      * Fuel::L_NONE
      * Fuel::L_ERROR
@@ -101,7 +102,8 @@ return array(
      * Fuel::L_ALL
      */
     'log_threshold' => Fuel::L_INFO,
-//    'log_threshold' => Fuel::L_WARNING,
+    // Comment out Logger methods in fuel/core/classes/request.php
+    //'log_threshold' => Fuel::L_WARNING,
     // 'log_path'         => APPPATH.'logs/',
     // 'log_date_format'  => 'Y-m-d H:i:s',
 
@@ -109,15 +111,13 @@ return array(
      * Security settings
      */
     'security' => array(
-         'csrf_autoload'    => false,
-         'csrf_token_key'   => 'PhOt0_GaL73rY_70k3N',
-         'csrf_expiration'  => 0,
-
+        'csrf_autoload' => false,
+        'csrf_token_key' => 'PhOt0_GaL73rY_70k3N',
+        'csrf_expiration' => 0,
         /**
          * A salt to make sure the generated security tokens are not predictable
          */
-         'token_salt'            => 'S47TY_G0oDn35S',
-
+        'token_salt' => 'S47TY_G0oDn35S',
         /**
          * Allow the Input class to use X headers when present
          *
@@ -173,6 +173,7 @@ return array(
             'Fuel\\Core\\View',
             'Fuel\\Core\\ViewModel',
             'Auth\\Auth_Group_Simplegroup',
+            'Auth\Auth_Login_Simpleauth',
             'Closure',
         ),
     ),
@@ -261,7 +262,7 @@ return array(
          * );
          */
         'packages' => array(
-            'orm', 'auth'
+            'orm', 'auth', 'parser'
         ),
     /**
      * These modules are always loaded on Fuel's startup. You can specify them

@@ -1,0 +1,34 @@
+<h2>Photographs</h2>
+
+<p>{{ html_anchor('admin/index', 'Back to Admin') }}</p>
+
+{% if photos is not null %}
+    <table class="bordered">
+        <tr>
+            <th>Image</th>
+            <th>Caption</th>
+            <th>Filename</th>
+            <th>Size</th>
+            <th>Type</th>
+            <th>Comments</th>
+            <th>View</th>
+            <th>Remove</th>
+        </tr>
+        {% for photo in photos %}
+            <tr>
+                <td>{{ html_anchor('admin/photos_edit/' ~ photo.id, asset_img('main/thumb/' ~ photo.filename, {'width': '100'})) }}</td>
+                <td>{{ photo.caption }}</td>
+                <td>{{ photo.filename }}</td>
+                <td>{{ num_format_bytes(photo.size) }}</td>
+                <td>{{ photo.type }}</td>
+                <td>{{ html_anchor('admin/comments/' ~ photo.id, photo.comment_count) }}</td>
+                <td>{{ html_anchor('admin/photos_edit/' ~ photo.id, 'Edit') }}</td>
+                <td>{{ html_anchor('admin/photos_delete/' ~ photo.id, 'Delete') }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No photos uploaded yet</p>
+{% endif %}
+
+<p>{{ html_anchor('admin/photos_new', 'Upload a new photograph') }}</p>

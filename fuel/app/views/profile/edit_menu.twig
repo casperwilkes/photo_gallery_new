@@ -1,0 +1,10 @@
+<h2>Update {{ username }}</h2>
+
+<p>{{ html_anchor('profile', 'Return to Profile') }}</p>
+<p style="font-size:1.1em;">What would you like to edit:</p>
+
+<ul>
+    {% for k in menu %}
+        <li>{{ html_anchor('profile/edit/'~ k, k | capitalize, {'title': 'Edit '~  k | capitalize})}}</li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,11 @@
+<h2>Editing Photograph: {{ photograph.caption | title }}</h2>
+
+<p>{{ html_anchor('admin/photos', 'Back to Photos') }}</p>
+
+<div style="margin-left: 20px;">
+    {{ asset_img('main/' ~ photograph.filename) }}
+</div>
+
+<br>
+
+{{ form }}

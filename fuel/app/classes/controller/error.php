@@ -8,7 +8,7 @@ class Controller_Error extends Controller {
      * @return  Response
      */
     public function action_404() {
-        return Response::forge(Presenter::forge('error/404'), 404);
+        return Response::forge(Presenter::forge('error/404', 'view', null, 'error/404.twig'), 404);
     }
 
 }

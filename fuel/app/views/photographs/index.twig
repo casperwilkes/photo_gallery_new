@@ -1,0 +1,13 @@
+{% if photographs %}
+    {% for photo in photographs %}
+        <div style="float: left; margin-left: 20px;">
+            {{ html_anchor('photographs/view/'~photo.id, asset_img('main/thumb/'~photo.filename, {'alt':'image'})) }}
+            <p>{{ photo.caption | title }}</p>
+        </div>
+    {% endfor %}
+    <div id="pagination" style="clear:both;">
+        {{ pagination }}
+    </div>
+{% else %}
+    <p>No Photographs To Display Yet.</p>
+{% endif %}

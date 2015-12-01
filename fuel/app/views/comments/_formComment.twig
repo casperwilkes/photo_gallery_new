@@ -1,0 +1,13 @@
+{{ form_open({'class':'form-horizontal'})}}
+<fieldset>
+    <legend>Add a Comment</legend>
+    {{ form_csrf() }}
+    <div class="form-group">
+        {{ form_label('Comment', 'comment', {'class':'control-label'}) }}
+        {{ form_textarea('comment', input_post('comment'), {'class':'form-control', 'placeholder':'What would you like to say?', 'rows':'4', 'cols': '40', 'required':'required'}) }}
+    </div>
+    <div class="form-group">
+        {{ form_submit('submit', 'Update', {'class': 'btn btn-primary'}) }}
+    </div>
+</fieldset>
+{{ form_close() }}

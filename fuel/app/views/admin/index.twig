@@ -1,0 +1,6 @@
+<h2>Menu</h2>
+<ul>
+    {% for nav in navigation %}
+        <li>{{ html_anchor(nav['path'], nav['value']) }}</li>
+    {% endfor %}
+</ul>

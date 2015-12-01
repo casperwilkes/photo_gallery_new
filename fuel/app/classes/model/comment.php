@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @todo fix relation. delete tries to delete the user too
+ * 
+ */
 class Model_Comment extends \Orm\Model {
 
     protected static $_properties = array(
@@ -68,7 +71,7 @@ class Model_Comment extends \Orm\Model {
             if ($val->run()) {
                 $comment = self::forge(array(
                             'photograph_id' => $id,
-                            'user_id' => $auth->get_screen_name(),
+                            'user_id' => $auth->get_user_id()[1], // [0] is driver [1] is id
                             'body' => $val->validated('comment')
                 ));
 
@@ -100,7 +103,7 @@ class Model_Comment extends \Orm\Model {
             $comment = self::find($id);
 
             if ($comment) {
-                if ($comment->delete()) {
+                if ($comment->delete(false)) {
                     Session::set_flash('success', 'Comment deleted successfully');
                     return true;
                 } else {

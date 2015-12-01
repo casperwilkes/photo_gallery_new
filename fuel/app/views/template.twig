@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Photo Gallery | {{ title | title }}</title>
+        {{ asset_css('main.css') }}
+        {{ asset_js('jquery.min.js') }}
+        <link rel="icon" href="{{ base_url(false) }}favicon.ico" type="image/x-icon" /> 
+        <base href="{{ base_url(false) }}">
+    </head>
+    <body>
+        <div id="header">
+            {% if auth.check == true and auth.get('group', 2) == 1 %}
+                {% set anchor, display = 'admin', 'Photo Gallery: Admin' %}
+            {% else %}
+                {% set anchor, display = 'photographs', 'Photo Gallery' %}
+            {% endif %}
+            <h1>{{ html_anchor(anchor, display, {'style': 'text-decoration: none; color: #D4E6F4'}) }}</h1>
+            <div id="log_in_out">
+                {% if auth.check == true %}
+                    {% set ul = [
+                        html_anchor('profile/',auth.get_screen_name(), {'class': 'logout'}), 
+                        html_anchor('logout', 'Logout', {'class': 'logout'})
+                        ] %}
+                    {% set attr = {'id':'nav'} %}
+                    {{ html_ul(ul, attr) }}
+                {% else %}
+                    {{ html_anchor('login', 'Login', {'class':'login'}) }}
+                {% endif %}
+            </div>
+        </div>
+        <div id="main">
+            <div id="container">
+                {% if session_get_flash('success') %}
+                    <div class="alert alert-success">
+                        <strong>Success!</strong>
+                        <p>
+                            {{ e(session_get_flash('success')) | join('</p><p>') }}
+                        </p>
+                    </div>
+                {% endif %}
+                
+                {% if session_get_flash('error') %}
+                    <div class="alert alert-danger">
+                        <strong>Error</strong>
+                        <p>
+                            {{ e(session_get_flash('error')) | join('</p><p>') }}
+                        </p>
+                    </div>
+                {% endif %}
+                {{ content }}
+            </div>
+        </div>
+        <footer>
+            <div id="footer">
+                Copyright 2002-{{ "NOW" | date('Y') }}, Pawtucket Inc.
+            </div>
+        </footer>
+        <script>
+            $('#nav').on({
+                mouseenter: function () {
+                    $('#nav li').css('display', 'block');
+                },
+                mouseleave: function () {
+                    $('#nav li:nth-child(n+2)').css('display', 'none');
+                }
+            });
+        </script>
+    </body>
+</html>
