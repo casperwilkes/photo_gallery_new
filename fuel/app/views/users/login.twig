@@ -1,8 +1,18 @@
-<h2>Login</h2>
+<div class="row">
+    <h1 class="text-center">Login</h1>
+</div>
 
-{{ include('users/_formLogin.twig') }}
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        {{ include('users/_formLogin.twig') }}
+    </div>
+</div>
 
-<p>
-    First time at Photo Gallery?<br>
-    Take a moment and {{ html_anchor('register', 'Register') }}
-</p>
+<div class="row">
+    <div class="col-md-3 col-md-offset-1 col-sm-3 col-sm-offset-1 col-xs-3 col-xs-offset-1">
+        <div class="well well-sm text-center">
+            First time at Photo Gallery?<br>
+            Take a moment and {{ html_anchor('register', 'Register') }}
+        </div>
+    </div>
+</div>

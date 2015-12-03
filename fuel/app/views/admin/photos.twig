@@ -1,34 +1,45 @@
-<h2>Photographs</h2>
+<div class="row">
+    <div class="col-md-12">
+        <h1>Photographs</h1>
+    </div>
+</div>
 
-<p>{{ html_anchor('admin/index', 'Back to Admin') }}</p>
+<div class="row">
+    <div class="col-md-6">
+        {{ html_anchor('admin', '<span class="glyphicon glyphicon-home"></span> Back to Admin', {'class': 'btn btn-primary'}) }}
+        {{ html_anchor('admin/photos_new', '<span class="glyphicon glyphicon-upload"></span> Upload a new photograph', {'class': 'btn btn-warning'}) }}
+    </div>
+</div>
 
-{% if photos is not null %}
-    <table class="bordered">
-        <tr>
-            <th>Image</th>
-            <th>Caption</th>
-            <th>Filename</th>
-            <th>Size</th>
-            <th>Type</th>
-            <th>Comments</th>
-            <th>View</th>
-            <th>Remove</th>
-        </tr>
-        {% for photo in photos %}
-            <tr>
-                <td>{{ html_anchor('admin/photos_edit/' ~ photo.id, asset_img('main/thumb/' ~ photo.filename, {'width': '100'})) }}</td>
-                <td>{{ photo.caption }}</td>
-                <td>{{ photo.filename }}</td>
-                <td>{{ num_format_bytes(photo.size) }}</td>
-                <td>{{ photo.type }}</td>
-                <td>{{ html_anchor('admin/comments/' ~ photo.id, photo.comment_count) }}</td>
-                <td>{{ html_anchor('admin/photos_edit/' ~ photo.id, 'Edit') }}</td>
-                <td>{{ html_anchor('admin/photos_delete/' ~ photo.id, 'Delete') }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-{% else %}
-    <p>No photos uploaded yet</p>
-{% endif %}
-
-<p>{{ html_anchor('admin/photos_new', 'Upload a new photograph') }}</p>
+<div class="row top-buffer">
+    <div class="col-md-12">
+        {% if photos is not null %}
+            <table class="table table-bordered table-hover text-center">
+                <tr>
+                    <th class="text-center">Image</th>
+                    <th class="text-center">Caption</th>
+                    <th class="text-center">Filename</th>
+                    <th class="text-center">Size</th>
+                    <th class="text-center">Type</th>
+                    <th class="text-center">Comments</th>
+                    <th class="text-center">View</th>
+                    <th class="text-center">Remove</th>
+                </tr>
+                {% for photo in photos %}
+                    <tr>
+                        <td>{{ html_anchor('admin/photos_edit/' ~ photo.id, asset_img('main/thumb/' ~ photo.filename, {'width': '100'})) }}</td>
+                        <td>{{ photo.caption | title }}</td>
+                        <td>{{ photo.filename }}</td>
+                        <td>{{ num_format_bytes(photo.size) }}</td>
+                        <td>{{ photo.type }}</td>
+                        <td>{{ html_anchor('admin/comments/' ~ photo.id, photo.comment_count) }}</td>
+                        <td>{{ html_anchor('admin/photos_edit/' ~ photo.id, 'Edit') }}</td>
+                        <td>{{ html_anchor('admin/photos_delete/' ~ photo.id, 'Delete') }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No photos uploaded yet</p>
+        {% endif %}
+    </div>
+</div>

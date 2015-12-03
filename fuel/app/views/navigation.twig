@@ -1,0 +1,33 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            {% set admin = (auth.check == true and auth.get('group', 2) == 1) %}
+            {% if admin %}
+                {% set anchor, display = 'admin', 'Photo Gallery: Admin' %}
+            {% else %}
+                {% set anchor, display = '/', 'Photo Gallery' %}
+            {% endif %}
+            {{ html_anchor(anchor, display, {'class': 'navbar-brand'}) }}
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            {% set csegment, msegment, active = uri_segment(1), uri_segment(2), 'class="active"' %}
+            <ul class="nav navbar-nav">
+                <li {% if csegment is null or csegment == 'photographs' and msegment != 'view' %}{{ active }}{% endif %}>
+                    {% if admin %}{{ html_anchor('admin','Admin') }}{% else %}{{ html_anchor('/', 'Home') }}{% endif %}
+                </li>
+                {% if auth.check == true %}
+                    <li {% if csegment == 'profile' %}{{ active }}{% endif %}>{{ html_anchor('profile','Profile', {'class': 'logout'}) }}</li>
+                    <li>{{ html_anchor('logout', 'Logout', {'class': 'logout'}) }}</li>
+                {% else %}
+                    <li {% if csegment == 'login' or csegment == 'register' %}{{ active }}{% endif %}>{{ html_anchor('login', 'Login', {'class':'login'}) }}</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

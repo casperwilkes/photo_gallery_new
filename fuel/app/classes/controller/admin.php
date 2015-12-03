@@ -18,8 +18,8 @@ class Controller_Admin extends Controller_Template {
             array('path' => 'admin/photos', 'value' => 'List Photos'),
             array('path' => 'admin/users', 'value' => 'Manage Users'),
             array('path' => 'photographs', 'value' => 'View Public'),
-            array('path' => 'users/logout', 'value' => 'Logout')
         );
+        
         $data['navigation'] = $nav;
         $this->template->title = 'Admin &raquo; Index';
         $this->template->content = View::forge('admin/index.twig', $data);
@@ -138,6 +138,7 @@ class Controller_Admin extends Controller_Template {
         $data = array(
             'photo' => $photo,
             'comments' => $photo->comments,
+            'admin' => true
         );
 
         $this->template->title = 'Photo Gallery: Admin';

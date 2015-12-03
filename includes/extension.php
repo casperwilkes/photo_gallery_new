@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * Methods were added to the getFunctions() method
+ * Put file inside of:
+ * fuel/packages/parser/classes/twig/fuel/
+ */
+
 /**
  * Fuel
  *

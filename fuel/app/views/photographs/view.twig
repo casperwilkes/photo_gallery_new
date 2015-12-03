@@ -1,29 +1,32 @@
-<h2>{{ photograph.caption | title}}</h2>
-
-<p>{{ html_anchor('photographs', 'Back') }}</p>
-
-<div style="margin-left: 20px;">
-    {{ asset_img('main/'~photograph.filename) }}
+<div class="row">
+    <div class="col-md-12">
+        <p>{{ html_anchor('photographs', 'Back to Main', {'class':'btn btn-xs btn-primary'}) }}</p>
+    </div>
 </div>
 
-<br>
-
-{% if show_form == true %}
-    {{ include('comments/_formComment.twig') }}
-{% else %}
-    {{ html_anchor('login', 'Login to leave a comment') }}
-{% endif %}
-
-<div id="comments">
-    {% if comments is not empty %}
-        {% for comment in comments %}
-            {{ comment.user.username }}
-            <div class="author">{{ html_anchor('profile/view/'~comment.user.username, comment.user.username) }} wrote:</div>
-            <div class="body"><p>{{ comment.body | nl2br }}</p></div>
-            <div class="meta-info" style="font-size: 0.8em;">{{ comment.created_at | date(' F d, Y g:i a') }}</div>
-            <br>
-        {% endfor %}
-    {% else %}
-        <p>No comments yet</p>
-    {% endif %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-center">{{ photograph.caption | title}}</h1>
+    </div>
 </div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        {{ asset_img('main/'~photograph.filename, {'class': 'center-block img-responsive'}) }}
+    </div>
+</div>
+
+<div class="row">
+    <div class="top-buffer col-md-8 col-xs-10 col-xs-offset-1 col-md-offset-2">
+        {% if show_form == true %}
+            {{ include('comments/_formComment.twig') }}
+        {% else %}
+            <p>{{ html_anchor('login', 'Login to leave a comment', {'class':'btn btn-warning'}) }}</p>
+        {% endif %}
+    </div>
+</div>
+
+{{ include('comments/comment_block.twig') }}
+

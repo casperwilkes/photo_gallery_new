@@ -1,11 +1,24 @@
-<h2>Editing Photograph: {{ photograph.caption | title }}</h2>
-
-<p>{{ html_anchor('admin/photos', 'Back to Photos') }}</p>
-
-<div style="margin-left: 20px;">
-    {{ asset_img('main/' ~ photograph.filename) }}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Editing Photograph: {{ photograph.caption | title }}</h1>
+    </div>
 </div>
 
-<br>
+<div class="row">
+    <div class="col-md-12">
+        <p>{{ html_anchor('admin/photos', '<span class="glyphicon glyphicon-camera"></span> Back to Photos', {'class': 'btn btn-primary'}) }}</p>
+    </div>
+</div>
 
-{{ form }}
+<div class="row">
+    <div class="col-md-12">
+        {{ asset_img('main/' ~ photograph.filename) }}
+    </div>
+</div>
+
+
+<div class="row top-buffer">
+    <div class="col-md-6">
+        {{ form }}
+    </div>
+</div>

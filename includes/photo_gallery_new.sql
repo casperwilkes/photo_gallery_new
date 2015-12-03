@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 29, 2015 at 01:36 AM
+-- Generation Time: Dec 03, 2015 at 01:08 PM
 -- Server version: 5.5.46-0ubuntu0.14.04.2
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -35,15 +35,16 @@ CREATE TABLE IF NOT EXISTS `comments` (
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `photograph_id` (`photograph_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `comments`
 --
 
 INSERT INTO `comments` (`id`, `photograph_id`, `user_id`, `body`, `created_at`, `updated_at`) VALUES
-(1, 8, 12, 'nice shoots', 1448769793, NULL),
-(2, 9, 12, 'Very pretty', 1448770288, NULL);
+(2, 9, 12, 'Very pretty', 1448770288, NULL),
+(4, 8, 11, 'I''ve seen em before\r\nsomewhere\r\ni think', 1448904004, NULL),
+(6, 8, 12, 'I''m pretty sure i have seen them though', 1449023050, NULL);
 
 -- --------------------------------------------------------
 
@@ -91,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `photographs` (
 --
 
 INSERT INTO `photographs` (`id`, `filename`, `type`, `size`, `caption`, `created_at`, `updated_at`) VALUES
-(8, 'fb4183d839.jpg', 'image/jpeg', 455568, 'Bamboo', 1448751749, 1448751749),
+(8, 'fb4183d839.jpg', 'image/jpeg', 455568, 'Bamboo', 1448751749, 1449110123),
 (9, '1acc39bb1f.jpg', 'image/jpeg', 664947, 'Flowers', 1448751762, 1448751762),
 (10, '149b691039.jpg', 'image/jpeg', 524574, 'Thatched Roof', 1448751775, 1448751775),
 (11, '0931a1b470.jpg', 'image/jpeg', 607118, 'Jar wall', 1448778444, 1448778444),
@@ -115,17 +116,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `group`, `email`, `last_login`, `login_hash`, `profile_fields`, `created_at`, `updated_at`) VALUES
-(6, 'casper', 'AwS5Hlmv1nq0GgARdx9YAFdS8DpcqwHm1Alep1HTA3A=', 1, 'casper.wilkes@gmail.com', '1448778404', 'b922402f30786d79a3dc9e270ba01b3de3da5b81', 'a:2:{s:3:"bio";s:0:"";s:5:"image";s:9:"noimg.jpg";}', 1421204677, 1448383558),
-(8, 'casper_wilkes', '3BrQctpr2qmj/i2Vo08WIwSyyGDZADpEVeq4IFqfDYo=', 0, 'casper.wilkes@hotmail.com', '1448747304', '8c3467dcc3097af7606098f6e93a9dbafbf74992', 'a:2:{s:3:"bio";s:0:"";s:5:"image";s:9:"noimg.jpg";}', 1421563754, 1448729294),
-(11, 'dave_thomas', '3BrQctpr2qmj/i2Vo08WIwSyyGDZADpEVeq4IFqfDYo=', 2, 'dave_thomas@gmail.com', '1448653297', 'f468e8e6eabff2ecd9ea6f62af3ac76598c91fe1', 'a:2:{s:3:"bio";s:0:"";s:5:"image";s:9:"noimg.jpg";}', 1448416082, NULL),
-(12, 'wendy', '3BrQctpr2qmj/i2Vo08WIwSyyGDZADpEVeq4IFqfDYo=', 2, 'wendy@wendys.com', '1448769784', 'e7684f8ba43c4c3a3ccd8b72caa939bc228ad191', 'a:2:{s:3:"bio";s:0:"";s:5:"image";s:14:"2ceba1e4eb.jpg";}', 1448751419, 1448756537);
+(6, 'casper', 'AwS5Hlmv1nq0GgARdx9YAFdS8DpcqwHm1Alep1HTA3A=', 1, 'casper@photogallery.com', '1449117227', 'ae9d63d114a665e38079dbe67dd2b150e3a639d2', 'a:2:{s:3:"bio";s:0:"";s:5:"image";s:9:"noimg.jpg";}', 1421204677, 1449117188),
+(11, 'dave_thomas', '3BrQctpr2qmj/i2Vo08WIwSyyGDZADpEVeq4IFqfDYo=', 2, 'dave_thomas@wendys.com', '1449117108', '39944e771d24010c773d2e5ebf104151ee3a18e6', 'a:2:{s:3:"bio";s:14:"I smile a lot.";s:5:"image";s:9:"noimg.jpg";}', 1448416082, 1449117134),
+(12, 'wendy', '3BrQctpr2qmj/i2Vo08WIwSyyGDZADpEVeq4IFqfDYo=', 2, 'wendy@wendys.com', '1449117043', 'b558d75a56be1c954488927478963a26d2d7de15', 'a:2:{s:3:"bio";s:18:"Try the Baconator.";s:5:"image";s:14:"400b63e202.jpg";}', 1448751419, 1449117079),
+(14, 'ronald', '3BrQctpr2qmj/i2Vo08WIwSyyGDZADpEVeq4IFqfDYo=', 0, 'ronald@mcdonalds.com', '1449116929', '95bd9432b1d6ed0f93006e51655671ddddb4b463', 'a:2:{s:3:"bio";s:0:"";s:5:"image";s:9:"noimg.jpg";}', 1449116929, 1449117017),
+(15, 'admin', '3BrQctpr2qmj/i2Vo08WIwSyyGDZADpEVeq4IFqfDYo=', 1, 'admin@photogallery.com', '1449117260', '59527681b16f62eb386591f74275a409f3a758df', 'a:2:{s:3:"bio";s:0:"";s:5:"image";s:9:"noimg.jpg";}', 1449117215, 1449117248);
 
 --
 -- Constraints for dumped tables

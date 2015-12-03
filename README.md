@@ -24,8 +24,10 @@ photo_gallery_new. I did the original project when I was first learning OOP prac
 more advanced PHP using [Lynda.com](http://www.lynda.com) tutorials. 
 
 This project is a revisit to the first. I wanted a deeper understanding of the Fuelphp 
-framework so I used photo_gallery as a starting point. The front end looks 
-exactly the same, while the back end has been completely made over. I will, more than
+framework so I used photo_gallery as a starting point. ~~The front end looks 
+exactly the same, while the back end has been completely made over.~~ I have modernized the 
+front end and given it a new look and feel using bootstrap. The way the application functions
+has not changed, but it has an overall updated user experience. I will, more than
 likely, revisit this application and provide follow ups to it in the near future. I 
 have already started to branch out and try new ideas. 
 
@@ -38,22 +40,32 @@ security far more seriously, as it's integrated into the framework. The first ap
 uses the now deprecated mysql* functions. The new application utilizes an ORM. Again,
 the two applications are vastly different, but use the same layout and key ideas. 
 
-##To Use the Projects
+##To Use the Project
 I have included the migrations needed to set up the database. I have also provided the 
-sql to start up the application. The sql for the database can be found in the sql directory 
-at the base of the project.
+sql to start up the application.
 
-To get the project up and running, clone the repository, then run composer update. Import the 
-SQL into your MySQL database, and go into *fuel/app/config/development/db.php* file and update the 
-username and password
+To get the project up and running, clone the repository, then run `composer update` inside the 
+project folder on the command line. Import the SQL into your MySQL database, and go into 
+*fuel/app/config/development/db.php* file and update the username and password to connect with 
+the database. The Administrator user name and password are:
+- Username
+ - admin
+- Password
+ - password
+
+Twig has been added to the templating system. In order for the templates to display, you will 
+need to replace the *fuel/packages/parser/classes/twig/fuel/extension.php* file.git 
+
+The sql for the database and the twig extension can be found in the includes directory 
+at the root of the project.
 
 ##The Road Ahead
 I am already working on and plan on implementing the following features:
-~~ - User profiles~~
-~~ - Multiple user uploads instead of just admin upload~~
-- Group controls
-~~ - User emails~~
-~~ - More admin control~~
+- ~~User profiles~~
+- ~~Multiple user uploads instead of just admin upload~~
+- ~~Group controls~~
+- User emails
+- ~~More admin control~~
 - A log reader (*I plan on turning this into a fuelphp package*)
 - A much richer experience all around
 

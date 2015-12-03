@@ -1,6 +1,15 @@
-<h2>Menu</h2>
-<ul>
-    {% for nav in navigation %}
-        <li>{{ html_anchor(nav['path'], nav['value']) }}</li>
-    {% endfor %}
-</ul>
+<div class="row">
+    <div class="col-md-12">
+        <h1>Admin Menu</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <ul class="list-group">
+            {% for nav in navigation %}
+                {{ html_anchor(nav['path'], nav['value'], {'class': 'list-group-item'}) }}
+            {% endfor %}
+        </ul>
+    </div>
+</div>

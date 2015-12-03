@@ -65,10 +65,10 @@ class Controller_Photographs extends Controller_Template {
         $page_config = array(
             'pagination_url' => Uri::base(false) . 'photographs',
             'total_items' => $total,
-            'per_page' => 3,
+            'per_page' => 4,
             'uri_segment' => 2,
-            'show_first' => true,
-            'show_last' => true,
+            'show_first' => false,
+            'show_last' => false,
         );
         return Pagination::forge($name, $page_config);
     }

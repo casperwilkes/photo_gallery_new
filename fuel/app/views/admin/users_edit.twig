@@ -1,8 +1,23 @@
-<h2>Edit User: {{ user.username }}</h2>
-<p>{{ html_anchor('admin/users', 'Back to Users') }}</p>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Edit User: {{ user.username }}</h2>
+    </div>
+</div>
 
-<div>{{ asset_img('profile/thumb/' ~ image) }}</div>
+<div class="row">
+    <div class="col-md-12">
+        <p>{{ html_anchor('admin/users', '<span class="glyphicon glyphicon-user"></span> Back to Users', {'class': 'btn btn-primary'}) }}</p>
+    </div>
+</div>
 
-<br>
+<div class="row">
+    <div class="col-md-3">
+        {{ asset_img('profile/thumb/' ~ image, {'class': 'center-block img-responsive'}) }}
+    </div>
+</div>
 
-{{ form }}
+<div class="row top-buffer">
+    <div class="col-md-6">
+        {{ form }}
+    </div>
+</div>

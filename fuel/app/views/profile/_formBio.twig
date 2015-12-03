@@ -1,15 +1,18 @@
 {{ form_open({'class': 'form-horizontal'}) }}
 <fieldset>
-    <legend>Update Bio</legend>
-    {{ form_csrf() }}
-    <div class="form-group">
-        {{ form_label('Bio', 'bio', {'class': 'control-label'}) }}
-        {{ form_textarea('bio', value, {'class': 'form-control', 'placeholder': 'What would you like to say about yourself?', 'rows': 4, 'required': 'required', 'autofocus': 'autofocus'}) }}
-    </div>
-    <div class="form-group">
-        {{ form_submit('submit', 'Update', {'class': 'btn btn-primary'}) }}
-        {{ form_reset('reset', 'Reset', {'class': 'btn btn-default'}) }}
-        {{ html_anchor('profile/edit', 'Cancel', {'class': 'btn btn-default'}) }}
+    <div class="col-md-6">
+        <legend>Update Bio</legend>
+        {{ form_csrf() }}
+        <div class="form-group">
+            {{ form_textarea('bio', value, {'class': 'form-control', 'placeholder': 'What would you like to say about yourself?', 'rows': 4, 'required': 'required', 'autofocus': 'autofocus'}) }}
+        </div>
+        <div class="form-group">
+           <div class="btn-group btn-group-sm">
+                {{ form_submit('submit', 'Update', {'class': 'btn btn-primary'}) }}
+                {{ form_reset('reset', 'Reset', {'class': 'btn btn-warning'}) }}
+                {{ html_anchor('profile/edit', 'Cancel', {'class': 'btn btn-default'}) }}
+            </div>
+        </div>
     </div>
 </fieldset>
 {{ form_close() }}

@@ -1,10 +1,27 @@
-<h2>Update {{ username }}</h2>
+<div class="row">
+    <div class="col-md-12">
+        <h1>Update {{ username }}</h1>
+    </div>
+</div>
 
-<p>{{ html_anchor('profile', 'Return to Profile') }}</p>
-<p style="font-size:1.1em;">What would you like to edit:</p>
-
-<ul>
-    {% for k in menu %}
-        <li>{{ html_anchor('profile/edit/'~ k, k | capitalize, {'title': 'Edit '~  k | capitalize})}}</li>
-    {% endfor %}
-</ul>
+<div class="row">
+    <div class="col-md-12">
+        <p>{{ html_anchor('profile', '<span class="glyphicon glyphicon-user"></span> Return to Profile',{'class': 'btn btn-primary'}) }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default text-center">
+            <div class="panel-heading">
+                <h3 class="panel-title">What would you like to edit?</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    {% for k in menu %}
+                        {{ html_anchor('profile/edit/'~ k, k | capitalize, {'title': 'Edit '~  k | capitalize, 'class': 'list-group-item'})}}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,13 +1,21 @@
-{% if photographs %}
-    {% for photo in photographs %}
-        <div style="float: left; margin-left: 20px;">
-            {{ html_anchor('photographs/view/'~photo.id, asset_img('main/thumb/'~photo.filename, {'alt':'image'})) }}
-            <p>{{ photo.caption | title }}</p>
+<div class="row">
+    {% if photographs %}
+        <div class="row top-buffer">
+            {% for photo in photographs %}
+                <div class="col-md-3 col-sm-6 col-xs-6 text-center">
+                    {{ html_anchor('photographs/view/'~photo.id, asset_img('main/thumb/'~photo.filename, {'alt': photo.caption | title})) }}
+                    <div class="caption">
+                        <p>{{ photo.caption | title }}</p>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-    <div id="pagination" style="clear:both;">
-        {{ pagination }}
-    </div>
-{% else %}
-    <p>No Photographs To Display Yet.</p>
-{% endif %}
+        <div id="page" class="row text-center">
+            <nav>
+                {{ pagination }}
+            </nav>
+        </div>
+    {% else %}
+        <p>No Photographs To Display Yet.</p>
+    {% endif %}
+</div>

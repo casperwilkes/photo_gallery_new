@@ -1,15 +1,19 @@
 {{ form_open({'class': 'form-horizontal'}) }}
 <fieldset>
-    <legend>Update Email</legend>
-    {{ form_csrf() }}
-    <div class="form-group">
-        {{ form_label('Email', 'email', {'class': 'control-label'}) }}
-        {{ form_input('email', value, {'class': 'form-control', 'placeholder': 'Email Address', 'type': 'email', 'required': 'required', 'autofocus': 'autofocus')) }}
-    </div>
-    <div class="form-group">
-        {{ form_submit('submit', 'Update', {'class': 'btn btn-primary'}) }}
-        {{ form_reset('reset', 'Reset', {'class': 'btn btn-default'}) }}
-        {{ html_anchor('profile/edit', 'Cancel', {'class': 'btn btn-default'}) }}
+    <div class="col-md-6">
+        <legend>Update Email</legend>
+        {{ form_csrf() }}
+        <div class="form-group">
+            {{ form_label('Email', 'email', {'class': 'control-label'}) }}
+            {{ form_input('email', value, {'class': 'form-control', 'placeholder': 'Email Address', 'type': 'email', 'required': 'required', 'autofocus': 'autofocus'}) }}
+        </div>
+        <div class="form-group">
+            <div class="btn-group btn-group-sm">
+                {{ form_submit('submit', 'Update', {'class': 'btn btn-primary'}) }}
+                {{ form_reset('reset', 'Reset', {'class': 'btn btn-warning'}) }}
+                {{ html_anchor('profile/edit', 'Cancel', {'class': 'btn btn-default'}) }}
+            </div>
+        </div>
     </div>
 </fieldset>
 {{ form_close() }}

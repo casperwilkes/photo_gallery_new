@@ -142,8 +142,16 @@ class Model_User extends \Orm\Model {
                 return false;
             }
         } catch (Exception $e) {
-            Log::error($e, __METHOD__);
-            Session::set_flash('error', 'Could not process registration request at this time');
+            if ($e->getCode() == 2) {
+                Session::set_flash('error', 'That email already exists in the system. Did you forget your password?');
+            } elseif ($e->getCode() == 3) {
+                Session::set_flash('error', 'Sorry, that username is already taken. Please try another.');
+            } else {
+                Log::error($e, __METHOD__);
+                Session::set_flash('error', 'Could not process registration request at this time');
+                Log::error($e);
+            }
+
             return false;
         }
     }

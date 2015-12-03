@@ -23,7 +23,7 @@
 return array(
 
 	// the active pagination template
-	'active'                      => 'default',
+	'active'                      => 'bootstrap3',
 
 	// default FuelPHP pagination template, compatible with pre-1.4 applications
 	'default'                     => array(

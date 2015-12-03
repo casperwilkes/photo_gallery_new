@@ -55,7 +55,7 @@ class Controller_Profile extends Controller_Template {
         );
 
         $this->template->title = 'Profile';
-        $this->template->content = View::forge('profile/index', $data);
+        $this->template->content = View::forge('profile/index.twig', $data);
     }
 
     public function get_edit($edit = null) {

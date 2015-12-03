@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>oops</title>
-        {{ asset_css('main.css') }}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="A place to browse photos">
+        <title>Photo Gallery | Oops</title>
+        {{ asset_css('yetitheme.min.css') }}
+        {{ asset_css('main.min.css') }}
+        <!--[if lt IE 9]>
+        {{ asset_js('html5shiv.min.js') }}
+        {{ asset_js('respond.min.js') }}
+        <![endif]-->
+        <link rel="icon" href="{{ base_url(false) }}favicon.ico" type="image/x-icon" /> 
+        <base href="{{ base_url(false) }}">
     </head>
     <body>
-        <div id="header">
-            <h1>{{ html_anchor('photographs', 'Photo Gallery', {'style': 'text-decoration: none; color: #D4E6F4'}) }}</h1>
-        </div>
-        <div id="main">
-            <div id="container">
+
+        {{ include('navigation.twig') }}
+
+        <div class="container">
+            <main role="main">
                 <h2>{{ title }}</h2>
                 <p>We can't find that</p>
-                {{ html_anchor('/', 'Go Back Home', {'title': 'Go Back Home'}) }}<p>
-            </div>
+                <p>{{ html_anchor('/', 'Go Back Home', {'title': 'Go Back Home','class': 'btn btn-primary'}) }}<p>
+            </main>
         </div>
-        <footer>
-            <div id="footer">
-                Copyright 2002-{{ "NOW" | date('Y') }}, Pawtucket Inc.
+
+        <footer class="footer top-buffer clearfix">
+            <div class="container">
+                <p class="text-muted text-right">Copyright 2002-{{ "NOW" | date('Y') }}, Pawtucket Inc.</p>
             </div>
         </footer>
     </body>
 </html>
+

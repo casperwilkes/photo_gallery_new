@@ -1,17 +1,22 @@
 {{ form_open({'class':'form-horizontal'}) }}
 <fieldset>
-    <legend>Login</legend>
     {{ form_csrf() }}
     <div class="form-group">
-        {{ form_label('Username', 'username' , {'class': 'control-label'}) }}
-        {{ form_input('username', input_post('username'), {'class': 'form-control', 'placeholder': 'Username or Email', 'required': 'required', 'autofocus': 'autofocus'} ) }}
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            {{ form_label('Username', 'username' , {'class': 'control-label visible-lg visible-md'}) }}
+            {{ form_input('username', input_post('username'), {'class': 'form-control', 'placeholder': 'Username or Email', 'required': 'required', 'autofocus': 'autofocus'} ) }}
+        </div>
     </div>
     <div class="form-group">
-        {{ form_label('Password', 'password', {'class': 'control-label'}) }}
-        {{ form_password('password', input_post('password'), {'class': 'form-control', 'placeholder': 'Password', 'required': 'required'}) }}
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            {{ form_label('Password', 'password', {'class': 'control-label visible-lg visible-md'}) }}
+            {{ form_password('password', input_post('password'), {'class': 'form-control', 'placeholder': 'Password', 'required': 'required'}) }}
+        </div>
     </div>
     <div class="form-group">
-        {{ form_submit('submit', 'Login', {'class': 'btn btn-primary'}) }}
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            {{ form_submit('submit', 'Login', {'class': 'btn btn-primary'}) }}
+        </div>
     </div>
 </fieldset>
 {{ form_close() }}
